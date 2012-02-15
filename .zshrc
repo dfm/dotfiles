@@ -1,5 +1,5 @@
 # oh-my-zsh
-ZSH=$HOME/src/oh-my-zsh
+ZSH=$HOME/lib/oh-my-zsh
 ZSH_THEME="robbyrussell"
 DISABLE_AUTO_UPDATE="true"
 plugins=(brew git github heroku osx pip python )
@@ -20,7 +20,7 @@ PATH="/usr/local/texlive/2011/bin/x86_64-darwin:${PATH}"
 export PATH
 
 # Enable z
-. ${HOME}/src/z/z.sh
+. ${HOME}/lib/z/z.sh
 function precmd () {
     _z --add "$(pwd -P)"
 }
