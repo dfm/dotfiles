@@ -11,7 +11,7 @@ fi
 
 mkdir -p $HOME/lib
 
-# # Setup .vim
+# Setup .vim
 DOTVIM=$HOME/lib/dotvim
 if [ ! -d $DOTVIM ]; then
     git clone git@github.com:dfm/.vim.git $DOTVIM
@@ -29,7 +29,7 @@ else
     echo "oh-my-zsh is already installed."
 fi
 
-# # Setup z
+# Setup z
 if [ ! -d $HOME/lib/z ]; then
     git clone https://github.com/rupa/z.git $HOME/lib/z
 else
