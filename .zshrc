@@ -20,6 +20,10 @@ export PATH
 alias j='z'
 alias c='clear'
 
+# Generate an html file containing all png files in the directory
+alias mkhtml=\
+    "ls *.png | awk '{print \"<img src=\\\"\" $1 \"\\\" />\"}' > index.html"
+
 # Customizations
 export GREP_OPTIONS='--color=auto'
 export EDITOR="vim"
