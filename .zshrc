@@ -22,6 +22,8 @@ alias c='clear'
 
 # Customizations
 export GREP_OPTIONS='--color=auto'
+export EDITOR="vim"
+export SVN_EDITOR="vim"
 
 # Enable z
 . ${HOME}/lib/z/z.sh
