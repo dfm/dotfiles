@@ -8,6 +8,7 @@ source $ZSH/oh-my-zsh.sh
 # Aliases
 alias j='z'
 alias c='clear'
+alias v='vim'
 
 # Generate an html file containing all png files in the directory
 alias mkhtml=\
