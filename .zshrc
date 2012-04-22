@@ -5,10 +5,12 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(brew git github heroku osx pip python )
 source $ZSH/oh-my-zsh.sh
 
+export MYVIM=`which vim`
+
 # Aliases
 alias j='z'
 alias c='clear'
-alias v='vim'
+alias v=${MYVIM}
 
 # Generate an html file containing all png files in the directory
 alias mkhtml=\
