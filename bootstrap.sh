@@ -39,4 +39,5 @@ fi
 # Links
 ln -Fs $DOTDIR/.zshrc     $HOME/.zshrc
 ln -Fs $DOTDIR/.gitconfig $HOME/.gitconfig
+ln -Fs $DOTDIR/.screenrc  $HOME/.screenrc
 
