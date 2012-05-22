@@ -29,10 +29,10 @@ if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi
 if [ -z $mystr ]; then export MYVIM=`which vim`; fi
 
 # Aliases
-alias j='z'
 alias c='clear'
 alias v=${MYVIM}
-alias t='todo.sh'
 
-# Todo.txt completion
+# Todo.txt setup
+alias t='todo.sh'
+export TODOTXT_DEFAULT_ACTION=ls
 source $HOME/lib/dotfiles/todo_completion
