@@ -5,13 +5,6 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(brew git github heroku osx pip python )
 source $ZSH/oh-my-zsh.sh
 
-export MYVIM=`which vim`
-
-# Aliases
-alias j='z'
-alias c='clear'
-alias v=${MYVIM}
-
 # Generate an html file containing all png files in the directory
 alias mkhtml=\
     "ls *.png | awk '{print \"<img src=\\\"\" $1 \"\\\" />\"}' > index.html"
@@ -33,3 +26,13 @@ export PATH=$HOME/lib/dotfiles/bin:$PATH
 # Finally, local settings
 if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi
 
+if [ -z $mystr ]; then export MYVIM=`which vim`; fi
+
+# Aliases
+alias j='z'
+alias c='clear'
+alias v=${MYVIM}
+alias t='todo.sh'
+
+# Todo.txt completion
+source $HOME/lib/dotfiles/todo_completion
