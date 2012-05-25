@@ -22,13 +22,6 @@ else
     echo "dotvim is already installed."
 fi
 
-# Setup oh-my-zsh
-if [ ! -d $HOME/lib/oh-my-zsh ]; then
-    git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/lib/oh-my-zsh
-else
-    echo "oh-my-zsh is already installed."
-fi
-
 # Setup z
 if [ ! -d $HOME/lib/z ]; then
     git clone https://github.com/rupa/z.git $HOME/lib/z
@@ -37,7 +30,6 @@ else
 fi
 
 # Links
-ln -Fs $DOTDIR/.zshrc     $HOME/.zshrc
-ln -Fs $DOTDIR/.gitconfig $HOME/.gitconfig
-ln -Fs $DOTDIR/.screenrc  $HOME/.screenrc
-
+ln -Fs $DOTDIR/zshrc     $HOME/.zshrc
+ln -Fs $DOTDIR/gitconfig $HOME/.gitconfig
+ln -Fs $DOTDIR/screenrc  $HOME/.screenrc
