@@ -133,10 +133,10 @@ $(git_time_since_commit)%{$reset_color%} \
 
 function count_code_booboos() {
     GIT_DIR=$(git rev-parse --git-dir 2> /dev/null) || return
-    NOTES_PATTERN="FIXME|TODO|MAGIC"
+    NOTES_PATTERN="FIXME|TODO|MAGIC|HACK"
     NOTES_RES=$(echo $(ack -hi --ignore-dir="venv" --ignore-dir="build" \
                     "\b$NOTES_PATTERN\b" "$(dirname $GIT_DIR)" 2>/dev/null))
-    for NM in "FIXME" "MAGIC" "TODO"
+    for NM in "fixme" "hack" "magic" "todo"
     do
         num=$(echo $(echo $NOTES_RES | ack -i "\b$NM\b" | wc -l))
         if [ $num != 0 ]
