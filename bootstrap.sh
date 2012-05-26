@@ -9,8 +9,6 @@ if [ `pwd` != $DOTDIR ]; then
     exit 1;
 fi
 
-mkdir -p $HOME/lib
-
 # Setup .vim
 DOTVIM=$HOME/lib/dotvim
 if [ ! -d $DOTVIM ]; then
@@ -33,3 +31,7 @@ fi
 ln -Fs $DOTDIR/zshrc     $HOME/.zshrc
 ln -Fs $DOTDIR/gitconfig $HOME/.gitconfig
 ln -Fs $DOTDIR/screenrc  $HOME/.screenrc
+
+# Matplotlib
+mkdir -p $HOME/.matplotlib
+ln -Fs $DOTDIR/matplotlibrc  $HOME/.matplotlib/matplotlibrc
