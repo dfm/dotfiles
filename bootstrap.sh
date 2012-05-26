@@ -35,3 +35,7 @@ ln -Ffs $DOTDIR/screenrc  $HOME/.screenrc
 # Matplotlib
 mkdir -p $HOME/.matplotlib
 ln -Ffs $DOTDIR/matplotlibrc  $HOME/.matplotlib/matplotlibrc
+
+# Todo.sh
+mkdir -p $HOME/todo
+ln -Ffs $DOTDIR/todo.cfg $HOME/.todo.cfg
