@@ -164,8 +164,36 @@ function count_todos() {
 }
 
 autoload -U add-zsh-hook
-add-zsh-hook precmd dfm_prompt_precmd
+add-zsh-hook preexec dfm_preexec
+add-zsh-hook precmd dfm_precmd
 
-function dfm_prompt_precmd() {
-    export RPROMPT="%{$fg_bold[cyan]%}$(count_code_booboos)$(count_todos)%{$reset_color%}"
+function title {
+    if [[ $TERM == "screen" ]]; then
+        # Use these two for GNU Screen:
+        print -nR $'\033k'$1$'\033'\\
+
+        print -nR $'\033]0;'$2$'\a'
+    elif [[ $TERM == "xterm" || $TERM == "rxvt" ]]; then
+        # Use this one instead for XTerms:
+        print -nR $'\033]0;'$*$'\a'
+    fi
 }
+
+function dfm_precmd () {
+    title zsh "$PWD"
+}
+
+function dfm_preexec () {
+    emulate -L zsh
+    local -a cmd; cmd=(${(z)1})
+    title $cmd[1]:t "$cmd[2,-1]"
+
+    # echo -ne "\ek${1%% *}\e\\"
+}
+
+# autoload -U add-zsh-hook
+# add-zsh-hook precmd dfm_prompt_precmd
+
+# function dfm_prompt_precmd() {
+#     export RPROMPT="%{$fg_bold[cyan]%}$(count_code_booboos)$(count_todos)%{$reset_color%}"
+# }
