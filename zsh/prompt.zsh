@@ -167,20 +167,26 @@ autoload -U add-zsh-hook
 add-zsh-hook preexec dfm_preexec
 add-zsh-hook precmd dfm_precmd
 
-function title () {
-    if [[ $TERM == "screen" ]]; then
-        print -nR $'\033k'$1$'\033'\\
-        print -nR $'\033]0;'$2$'\a'
-    fi
+# http://dotfiles.org/~_why/.zshrc
+function title() {
+    # escape '%' chars in $1, make nonprintables visible
+    a=${(V)1//\%/\%\%}
+
+    # Truncate command, and join lines.
+    a=$(print -Pn "%40>...>$a" | tr -d "\n")
+
+    case $TERM in
+        screen)
+            print -Pn "\ek$a:$3\e\\";;;
+        xterm*|rxvt)
+            print -Pn "\e]2;$2 | $a:$3\a";;;
+    esac
 }
 
 function dfm_precmd () {
-    title ${PWD}
+    title "zsh" "$USER@%m" "%55<...<%~"
 }
 
 function dfm_preexec () {
-    emulate -L zsh
-    local -a cmd
-    cmd=(${(z)1})
-    title $cmd[1]:t
+    title "$1" "$USER@%m" "%35<...<%~"
 }
