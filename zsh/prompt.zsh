@@ -173,7 +173,7 @@ function title() {
     a=${(V)1//\%/\%\%}
 
     # Truncate command, and join lines.
-    a=$(print -Pn "%25>...>$a" | tr -d "\n")
+    a=$(print -Pn "%10>...>$a" | tr -d "\n")
 
     case $TERM in
         screen)
@@ -184,9 +184,9 @@ function title() {
 }
 
 function dfm_precmd () {
-    title "zsh" "$USER@%m" "%25<...<%~"
+    title "zsh" "$USER@%m" "%10<...<%~"
 }
 
 function dfm_preexec () {
-    title "$1" "$USER@%m" "%25<...<%~"
+    title "$1" "$USER@%m" "%10<...<%~"
 }
