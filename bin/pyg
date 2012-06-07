@@ -1,0 +1,3 @@
+#!/bin/bash
+# From http://emptysquare.net/blog/syntax-highlighting-with-pycharm-pygments-and-keynote/
+env pygmentize -f rtf -O "style=friendly,fontface=Courier Bold" "$1" | pbcopy
