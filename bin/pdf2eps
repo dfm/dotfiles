@@ -2,7 +2,8 @@
 
 # http://email.esm.psu.edu/pipermail/macosx-tex/2004-July/006767.html
 
-if [ $# == 1 ]
-then
-    gs -dNOPAUSE -dNOCACHE -dBATCH -sDEVICE=epswrite -sOutputFile=${1%.pdf}.eps $1
-fi
+for fn in "$@"
+do
+    echo "Converting $fn to ${fn%.pdf}.eps ..."
+    gs -dNOPAUSE -dNOCACHE -dBATCH -sDEVICE=epswrite -sOutputFile=${fn%.pdf}.eps $fn
+done
