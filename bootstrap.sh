@@ -31,6 +31,7 @@ fi
 ln -Ffs $DOTDIR/zshrc     $HOME/.zshrc
 ln -Ffs $DOTDIR/gitconfig $HOME/.gitconfig
 ln -Ffs $DOTDIR/screenrc  $HOME/.screenrc
+ln -Ffs $DOTDIR/tmux.conf  $HOME/.tmux.conf
 
 # Matplotlib
 mkdir -p $HOME/.matplotlib

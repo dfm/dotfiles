@@ -184,9 +184,9 @@ function title() {
 }
 
 function dfm_precmd () {
-    title "zsh" "$USER@%m" "%10<...<%~"
+    title "zsh" "$USER@%m" "%c"
 }
 
 function dfm_preexec () {
-    title "$1" "$USER@%m" "%10<...<%~"
+    title "$1" "$USER@%m" "%c"
 }
