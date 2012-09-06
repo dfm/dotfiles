@@ -77,4 +77,5 @@
     cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
     trustExitCode = true
 [credential]
+    helper = store
     helper = osxkeychain
