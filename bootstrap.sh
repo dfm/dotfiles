@@ -31,6 +31,7 @@ fi
 ln -Ffs $DOTDIR/zshrc     $HOME/.zshrc
 ln -Ffs $DOTDIR/gitconfig $HOME/.gitconfig
 ln -Ffs $DOTDIR/screenrc  $HOME/.screenrc
+ln -Ffs $DOTDIR/tmux.conf  $HOME/.tmux.conf
 
 # Matplotlib
 mkdir -p $HOME/.matplotlib
@@ -39,3 +40,6 @@ ln -Ffs $DOTDIR/matplotlibrc  $HOME/.matplotlib/matplotlibrc
 # Todo.sh
 mkdir -p $HOME/todo
 ln -Ffs $DOTDIR/todo.cfg $HOME/.todo.cfg
+
+# Pygments
+pip install pygments >/dev/null >&2 || { echo "You should really install pip/pygments..."; }
