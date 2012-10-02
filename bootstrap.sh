@@ -50,3 +50,4 @@ pip install keyring >/dev/null >&2 || { echo "You should really install keyring.
 mkdir -p $HOME/.mail
 ln -Ffs $DOTDIR/mutt  $HOME/.mutt
 ln -Ffs $DOTDIR/offlineimaprc  $HOME/.offlineimaprc
+ln -Ffs $DOTDIR/urlview  $HOME/.urlview
