@@ -43,3 +43,10 @@ ln -Ffs $DOTDIR/todo.cfg $HOME/.todo.cfg
 
 # Pygments
 pip install pygments >/dev/null >&2 || { echo "You should really install pip/pygments..."; }
+
+# Mutt, offlineimap, etc.
+pip install keyring >/dev/null >&2 || { echo "You should really install keyring..."; }
+
+mkdir -p $HOME/.mail
+ln -Ffs $DOTDIR/mutt  $HOME/.mutt
+ln -Ffs $DOTDIR/offlineimaprc  $HOME/.offlineimaprc
