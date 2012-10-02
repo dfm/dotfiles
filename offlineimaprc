@@ -1,5 +1,5 @@
 [general]
-ui = TTY.TTYUI
+ui = TTYUI
 accounts = Gmail
 pythonfile=~/.mutt/offlineimap.py
 fsync = False
@@ -22,6 +22,7 @@ nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
 
 [Repository Gmail-Remote]
 maxconnections = 1
+cert_fingerprint = f3043dd689a2e7dddfbef82703a6c65ea9b634c1
 type = Gmail
 remoteuser = foreman.mackey@gmail.com
 remotepasseval = get_keychain_pass(account="foreman.mackey@gmail.com", server="gmail")
@@ -34,4 +35,5 @@ nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
                             }.get(folder, folder)
 folderfilter = lambda folder: folder not in ['[Gmail]/Trash',
                                              '[Gmail]/Spam',
+                                             '[Gmail]/Important',
                                             ]
