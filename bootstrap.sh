@@ -51,3 +51,4 @@ mkdir -p $HOME/.mail
 ln -Ffs $DOTDIR/mutt  $HOME/.mutt
 ln -Ffs $DOTDIR/offlineimaprc  $HOME/.offlineimaprc
 ln -Ffs $DOTDIR/urlview  $HOME/.urlview
+ln -Ffs $DOTDIR/msmtprc  $HOME/.msmtprc
