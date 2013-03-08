@@ -52,15 +52,6 @@
     addremove = !git add . && git add -u
     addrem = !git addremove
 
-[difftool "Kaleidoscope"]
-    cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
-
-[difftool]
-    prompt = false
-
-[diff]
-    tool = Kaleidoscope
-
 [push]
     default = current
 
@@ -70,12 +61,21 @@
     interactive = auto
     status = auto
 
-[merge]
-    tool = splice
-
 [mergetool "splice"]
     cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
     trustExitCode = true
 [credential]
     helper = store
     helper = osxkeychain
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[diff]
+	tool = Kaleidoscope
+[difftool]
+	prompt = false
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+[mergetool]
+	prompt = false
+[merge]
+	tool = Kaleidoscope
