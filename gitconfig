@@ -5,6 +5,7 @@
 [core]
     pager = cat
     editor = vim
+	excludesfile = ~/.gitignore
 
 [alias]
     tags = tag -l
@@ -67,3 +68,5 @@
 
 [include]
     path = ~/.gitconfig_local
+[init]
+	templatedir = ~/.git_template

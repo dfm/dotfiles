@@ -22,3 +22,6 @@ if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi
 alias t='todo.sh'
 export TODOTXT_DEFAULT_ACTION=ls
 source $HOME/lib/dotfiles/todo_completion
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
