@@ -10,8 +10,7 @@
 
         <key>ProgramArguments</key>
         <array>
-            <string>mbsync</string>
-            <string>gmail-inbox</string>
+            <string>/Users/dfm/lib/dotfiles/mutt/checkmail.sh</string>
         </array>
 
         <key>RunAtLoad</key>
