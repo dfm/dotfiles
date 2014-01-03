@@ -110,8 +110,6 @@ bind pager j  next-line
 bind pager gg top
 bind pager G  bottom
 
-bind pager R  group-reply
-
 # View attachments properly.
 bind attach <return> view-mailcap
 
@@ -144,7 +142,8 @@ unset record
 
 # Searching ------------------------------------------
 
-macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
+macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-search -g foreman.mackey@gmail.com -t ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using Gmail IMAP)"
+macro index SS "<enter-command>unset wait_key<enter><shell-escape>mutt-search -t ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
 set query_command = "mutt-contact-complete -q '%s'"
 bind editor <Tab> complete-query
 bind editor ^T    complete
