@@ -1,0 +1,192 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import (division, print_function, absolute_import,
+                        unicode_literals)
+
+__all__ = ["notmuch_search", "gmail_search", "build_tmp_dir"]
+
+import os
+import sys
+import getpass
+import imaplib
+import logging
+import socket
+import subprocess
+from mailbox import Maildir
+
+try:
+    import keyring
+    keyring = keyring
+except ImportError:
+    keyring = None
+
+
+SERVICE_NAME = "mutt-search"
+SERVER = "imap.gmail.com"
+PORT = 993
+
+
+def notmuch_search(q):
+    files = subprocess.check_output(["notmuch", "search", "--output=files", q])
+    return files.splitlines()
+
+
+def gmail_search(q, email, archive, mb="\"[Gmail]/All Mail\""):
+    # Fetch the user password.
+    pw = get_password(email)
+
+    # Parse the isync UID dictionary. We're assuming that you're using isync.
+    box = Maildir(archive)
+    with open(os.path.join(archive, ".mbsyncstate"), "r") as f:
+        lines = f.readlines()
+    uid_map = {}
+    for line in lines[5:]:
+        cols = line.split()
+        if len(cols) < 2:
+            continue
+        try:
+            int(cols[0]), int(cols[1])
+        except:
+            continue
+        uid_map[cols[0].strip()] = cols[1].strip()
+
+    try:
+        with IMAPConnection(email, pw, SERVER, PORT) as conn:
+            # Select the standard Gmail archive.
+            code, data = conn.select(mb, True)
+            if code != "OK":
+                logging.error("Couldn't select 'All Mail'.")
+                return []
+
+            # Run the search on the server.
+            print("Querying Gmail...")
+            code, uids = conn.uid("search", None,
+                                  "(X-GM-RAW \"{0}\")".format(q))
+            if code != "OK":
+                logging.error("Failed to run search.")
+                return []
+            uids = uids[0].split()
+
+    except imaplib.IMAP4.error:
+        logging.error("IMAP error.")
+        return []
+
+    except socket.error:
+        logging.error("Network error.")
+        return []
+
+    # Resolve the UIDs.
+    files = []
+    for uid in uids:
+        # Huge HACK!
+        # We're assuming that the local UIDs are encoded in the Maildir
+        # filenames.
+        keys = filter(lambda k: k.endswith("U={0}".format(uid_map[uid])),
+                      box.keys())
+        if not len(keys):
+            print("Missing UID: {0}".format(uid))
+            continue
+
+        # Use the hidden Maildir key -> path mapping.
+        files.append(os.path.join(archive, box._toc[keys[0]]))
+
+    return files
+
+
+def get_password(email, force=False):
+    pw = None
+
+    # If not forcing, try to return a cached password.
+    if not force:
+        # Grab the password from the keyring if it's available.
+        if keyring is not None:
+            pw = keyring.get_password(SERVICE_NAME, email)
+
+    # If that failed, ask for the password.
+    if pw is None:
+        pw = getpass.getpass("Password for {0}: ".format(email))
+        if keyring is not None:
+            flag = raw_input("Save password in key chain? [Y/n] ")
+            if flag in ["Y", "y", ""]:
+                keyring.set_password(SERVICE_NAME, email, pw)
+
+    return pw
+
+
+def build_tmp_dir(files, target):
+    # Initialize the Maildir directories.
+    try:
+        os.makedirs(os.path.join(target, "cur"))
+        os.makedirs(os.path.join(target, "new"))
+    except os.error:
+        pass
+
+    # Clear the mailbox.
+    box = Maildir(target)
+    box.clear()
+
+    # Build the symlinks into the results directory.
+    for fn in files:
+        pre, suff = os.path.split(fn)
+        try:
+            os.symlink(fn, os.path.join(target, "cur", suff))
+        except os.error:
+            print("Missing file: {0}".format(fn))
+
+
+class IMAPConnection(object):
+    """
+    A wrapper around an :class:`imaplib.IMAP4_SSL` object that allows it to
+    be used in a ``with`` block.
+
+    """
+    def __init__(self, email, password, server, port):
+        self.email = email
+        self.password = password
+        self.server = server
+        self.port = port
+
+    def __enter__(self):
+        self.connection = imaplib.IMAP4_SSL(self.server, self.port)
+        self.connection.login(self.email, self.password)
+        return self.connection
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.connection.logout()
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Search your email using notmuch or Gmail IMAP")
+    parser.add_argument("-g", "--gmail",
+                        help="Gmail email address to use IMAP extension")
+    parser.add_argument("-a", "--archive", default="~/.mail/gmail/archive",
+                        help="Path to your local Gmail/All Mail directory")
+    parser.add_argument("-m", "--mailbox", default="\"[Gmail]/All Mail\"",
+                        help="The name of the Gmail mailbox to select")
+    parser.add_argument("-t", "--target", default="~/.mail/mutt_results",
+                        help="The target mailbox path")
+    args = parser.parse_args()
+
+    query = raw_input("Query: ")
+    if not len(query.strip()):
+        print("You have to enter a query")
+        sys.exit(1)
+
+    if args.gmail is not None:
+        files = gmail_search(query, args.gmail,
+                             os.path.expanduser(args.archive),
+                             mb=args.mailbox)
+    else:
+        files = notmuch_search(query)
+
+    if not len(files):
+        print("No results.")
+    elif len(files) == 1:
+        print("One result.")
+    else:
+        print("{0} results".format(len(files)))
+    build_tmp_dir(files, os.path.expanduser(args.target))
