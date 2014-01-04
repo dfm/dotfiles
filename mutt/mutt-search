@@ -32,24 +32,9 @@ def notmuch_search(q):
     return files.splitlines()
 
 
-def gmail_search(q, email, archive, mb="\"[Gmail]/All Mail\""):
+def gmail_search(q, email, archive, mb="\"[Gmail]/All Mail\"", limit=500):
     # Fetch the user password.
     pw = get_password(email)
-
-    # Parse the isync UID dictionary. We're assuming that you're using isync.
-    box = Maildir(archive)
-    with open(os.path.join(archive, ".mbsyncstate"), "r") as f:
-        lines = f.readlines()
-    uid_map = {}
-    for line in lines[5:]:
-        cols = line.split()
-        if len(cols) < 2:
-            continue
-        try:
-            int(cols[0]), int(cols[1])
-        except:
-            continue
-        uid_map[cols[0].strip()] = cols[1].strip()
 
     try:
         with IMAPConnection(email, pw, SERVER, PORT) as conn:
@@ -67,6 +52,7 @@ def gmail_search(q, email, archive, mb="\"[Gmail]/All Mail\""):
                 logging.error("Failed to run search.")
                 return []
             uids = uids[0].split()
+            print("Found {0} UIDs".format(len(uids)))
 
     except imaplib.IMAP4.error:
         logging.error("IMAP error.")
@@ -76,20 +62,39 @@ def gmail_search(q, email, archive, mb="\"[Gmail]/All Mail\""):
         logging.error("Network error.")
         return []
 
+    # Build the map between filenames and UIDs.
+    box = Maildir(archive)
+    local_uid_map = dict([(int(k.split("U=")[1]), k) for k in box.keys()])
+
+    # Build the map between remote and local UIDs.
+    with open(os.path.join(archive, ".mbsyncstate"), "r") as f:
+        lines = f.readlines()
+    remote_uid_map = {}
+    for line in lines[5:]:
+        cols = line.split()
+        if len(cols) < 2:
+            continue
+        try:
+            int(cols[0]), int(cols[1])
+        except:
+            continue
+        remote_uid_map[cols[0].strip()] = int(cols[1])
+
     # Resolve the UIDs.
     files = []
-    for uid in uids:
-        # Huge HACK!
-        # We're assuming that the local UIDs are encoded in the Maildir
-        # filenames.
-        keys = filter(lambda k: k.endswith("U={0}".format(uid_map[uid])),
-                      box.keys())
-        if not len(keys):
+    for uid in uids[-limit:]:
+        local_uid = remote_uid_map.get(uid, None)
+        if local_uid is None:
             print("Missing UID: {0}".format(uid))
             continue
 
+        fn = local_uid_map.get(local_uid, None)
+        if fn is None:
+            print("No file for local UID: {0}".format(fn))
+            continue
+
         # Use the hidden Maildir key -> path mapping.
-        files.append(os.path.join(archive, box._toc[keys[0]]))
+        files.append(os.path.join(archive, box._toc[fn]))
 
     return files
 
