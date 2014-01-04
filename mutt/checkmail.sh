@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-mbsync gmail-inbox
+export PATH="/Users/dfm/bin:/usr/local/bin:${PATH}"
+mbsync gmail-all
 notmuch new

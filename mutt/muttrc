@@ -30,6 +30,7 @@ set thorough_search      # strip headers and eval mimes before searching
 set sidebar_delim   = '  │'
 set sidebar_visible = yes
 set sidebar_width   = 24
+set sidebar_format  = "%B%* (%N)"
 # color sidebar_new color221 color233
 
 # Status Bar -----------------------------------------
@@ -51,9 +52,12 @@ alternates danfm@nyu.edu
 
 # Mailboxes to show in the sidebar.
 mailboxes +gmail/inbox \
-          +gmail/archive \
+          +gmail/nyu \
+          +gmail/ugly \
+          +gmail/meetup \
           +gmail/sent \
           +gmail/drafts \
+          +gmail/archive \
           +temporary/search \
 
 # Other special folders.
@@ -147,7 +151,7 @@ unset record
 # Searching ------------------------------------------
 
 macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-search -g foreman.mackey@gmail.com -t ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using Gmail IMAP)"
-macro index SS "<enter-command>unset wait_key<enter><shell-escape>mutt-search -t ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
+# macro index SS "<enter-command>unset wait_key<enter><shell-escape>mutt-search -t ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
 
 # Contacts ------------------------------------------
 

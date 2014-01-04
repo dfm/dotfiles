@@ -26,6 +26,6 @@
         <string>dfm</string>
 
         <key>StartInterval</key>
-        <integer>600</integer>
+        <integer>300</integer>
     </dict>
 </plist>

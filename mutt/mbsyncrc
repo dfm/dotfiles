@@ -22,7 +22,7 @@ SyncState *
 Channel gmail-archive
 Master ":gmail-remote:[Gmail]/All Mail"
 Slave ":gmail-local:archive"
-Create Both
+Create Slave
 Expunge Slave
 SyncState *
 
@@ -54,11 +54,35 @@ Create Both
 Expunge Both
 SyncState *
 
+Channel gmail-ugly
+Master ":gmail-remote:[Ugly Reader]"
+Slave ":gmail-local:ugly"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-nyu
+Master ":gmail-remote:NYU Physics"
+Slave ":gmail-local:nyu"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-meetup
+Master ":gmail-remote:Meetup"
+Slave ":gmail-local:meetup"
+Create Both
+Expunge Both
+SyncState *
+
 Group gmail-all
 Channel gmail-trash
 Channel gmail-inbox
 Channel gmail-drafts
 Channel gmail-flagged
+Channel gmail-nyu
+Channel gmail-ugly
+Channel gmail-meetup
 Channel gmail-sent
 Channel gmail-archive
 
