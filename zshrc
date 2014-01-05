@@ -19,7 +19,7 @@ export PATH=$HOME/lib/dotfiles/bin:$PATH
 if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi
 
 # Todo.txt setup
-alias t='todo.sh'
+alias todo='todo.sh'
 export TODOTXT_DEFAULT_ACTION=ls
 source $HOME/lib/dotfiles/todo_completion
 
