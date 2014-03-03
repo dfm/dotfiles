@@ -21,7 +21,7 @@ make_completion gc "git commit"
 make_completion gst "git status"
 
 # Add in the Anaconda path.
-set -g -x PATH ~/anaconda/bin $PATH
+set -g -x PATH $HOME/anaconda/bin $PATH
 
 # Source any local settings.
 if test -s $HOME/.config/fish/local.fish
