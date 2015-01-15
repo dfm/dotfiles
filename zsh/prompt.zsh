@@ -127,7 +127,7 @@ function git_time_since_commit() {
 export PROMPT='%{$fg[blue]%}%c \
 $(git_prompt_info)\
 $(git_time_since_commit)%{$reset_color%} \
-%{$fg[white]%}%(!.#.⚡)%{$reset_color%} '
+%{$fg[white]%}%(!.#. )%{$reset_color%}'
 
 # The right-hand prompt.
 

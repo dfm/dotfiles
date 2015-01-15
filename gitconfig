@@ -5,7 +5,7 @@
 [core]
     pager = cat
     editor = vim
-	excludesfile = ~/.gitignore
+    excludesfile = ~/.gitignore
 
 [alias]
     tags = tag -l

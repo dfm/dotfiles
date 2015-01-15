@@ -7,9 +7,9 @@ compinit -i
 for config_file ($HOME/lib/dotfiles/**/*.zsh) source $config_file
 
 # Enable z
-. ${HOME}/lib/z/z.sh
+. ${HOME}/lib/dotfiles/bin/z.sh
 function precmd () {
-    _z --add "$(pwd -P)"
+    z --add "$(pwd -P)"
 }
 
 # Add bin to path
