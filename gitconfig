@@ -68,3 +68,5 @@
 
 [include]
     path = ~/.gitconfig_local
+[github]
+	user = dfm

@@ -7,3 +7,6 @@ alias c="clear"
 alias v="vim"
 
 alias mkhtml="ls *.png | awk '{print \"<img src=\\\"\" $1 \"\\\" />\"}' > index.html"
+
+# Clean up and update conda packages
+alias cup="conda clean -pity;conda update --all"
