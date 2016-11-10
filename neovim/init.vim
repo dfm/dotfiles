@@ -24,11 +24,17 @@ syntax on
 set autoindent
 let mapleader=","
 
-" Return to last edit position when opening files (You want this!)
-" autocmd BufReadPost *
-"      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"      \   exe "normal! g`\"" |
-"      \ endif
+" Return to last edit position when opening files - doesn't work in neovim
+" See issue: #3472
+nnoremap <leader>gg g`"
+function! SetCursorPosition()
+  if &filetype !~ 'svn\|commit\c'
+    if line("'\"") > 0 && line("'\"") <= line("$") |
+      execute 'normal! g`"zvzz' |
+    endif
+  end
+endfunction
+autocmd BufReadPost * call SetCursorPosition()
 
 " Remember info about open buffers on close
 set viminfo^=%
