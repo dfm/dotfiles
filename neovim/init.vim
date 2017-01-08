@@ -12,6 +12,8 @@ Plug 'neomake/neomake'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'scrooloose/nerdcommenter'
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'gregsexton/MatchTag'
 
 call plug#end()
 filetype plugin indent on
@@ -114,7 +116,7 @@ set spell
 setlocal spell spelllang=en_us
 
 " Un-highlight search when we hit enter
-autocmd BufRead,BufNewFile * nnoremap <buffer><cr> :nohlsearch<cr>
+nnoremap <buffer><cr> :nohlsearch<cr>
 
 " Clean up whitespace at the ends of lines before writing
 autocmd BufWritePre * :%s/\s\+$//e
@@ -151,8 +153,8 @@ noremap <C-k> <C-W>+
 noremap <C-l> <C-w><
 
 " Yank, comment, paste.
-nmap <leader>y Y\\\P
-vmap <leader>y ygv\\P
+nmap <leader>y Y<leader>c<space>P
+vmap <leader>y ygv<leader>c<space>P
 
 " Copy/paste from Micha
 vmap <leader>c ! pbcopy<CR>u
@@ -226,7 +228,6 @@ let g:snippets_dir='~/.config/nvim/snippets'
 "
 "  NERD COMMENTER
 "
-let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
 
