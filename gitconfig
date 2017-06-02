@@ -4,7 +4,7 @@
 
 [core]
     pager = cat
-    editor = vim
+    editor = nvim
     excludesfile = ~/.gitignore
 
 [alias]

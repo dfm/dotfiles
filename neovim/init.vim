@@ -5,15 +5,23 @@ filetype off
 set nocompatible
 call plug#begin()
 
+" Colors
 Plug 'altercation/vim-colors-solarized'
+
+" Building and autocomplete
+"Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
-Plug 'neomake/neomake'
+Plug 'tweekmonster/deoplete-clang2'
+Plug 'Shougo/neoinclude.vim'
+
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'scrooloose/nerdcommenter'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'gregsexton/MatchTag'
+
+Plug 'w0rp/ale'
 
 call plug#end()
 filetype plugin indent on
@@ -210,14 +218,28 @@ augroup omnifuncs
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup end
 
+" Always look for Eigen
+let g:neoinclude#paths = {'cpp' : '/usr/local/include/eigen3'}
+"let g:deoplete#sources#clang#autofill_neomake = 1
+"let g:deoplete#sources#clang#flags = ['-I/usr/local/include/eigen3', '-Icpp/include']
+
 " tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 "
 "  NEOMAKE
 "
-autocmd! BufReadPost,BufWritePost * Neomake
-let g:neomake_python_flake8_args=['--ignore=E302,E226,E731',]
+"autocmd! BufReadPost,BufWritePost * Neomake
+"let g:neomake_python_enabled_makers = ['flake8']
+"let g:neomake_python_flake8_args=['--ignore=E302,E226,E731,E305',]
+"
+
+"
+" Linting
+"
+
+let g:ale_linters = {'tex': ['chktex', 'lacheck', 'vale'],
+            \        'python': ['flake8']}
 
 "
 "  ULTISNIPS
