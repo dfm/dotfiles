@@ -1,5 +1,5 @@
 font.size: 16
-font.family: sans-serif
-font.sans-serif: Computer Modern Sans
 text.usetex: True
 text.latex.preamble: \usepackage{cmbright}
+# font.family: sans-serif
+# font.sans-serif: Computer Modern Sans

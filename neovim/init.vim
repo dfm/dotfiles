@@ -8,10 +8,14 @@ call plug#begin()
 " Colors
 Plug 'altercation/vim-colors-solarized'
 
+" Fuzzy finding
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
 " Building and autocomplete
-"Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/context_filetype.vim'
+Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 Plug 'tweekmonster/deoplete-clang2'
 Plug 'Shougo/neoinclude.vim'
 
@@ -22,6 +26,9 @@ Plug 'JuliaEditorSupport/julia-vim'
 Plug 'gregsexton/MatchTag'
 
 Plug 'w0rp/ale'
+"Plug 'neomake/neomake'
+"
+Plug 'dfm/shifttab.nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 filetype plugin indent on
@@ -178,6 +185,10 @@ function Prose ()
   set wrap
   set nolist
   set display=lastline
+  set noautoindent
+  set nocindent
+  set nosmartindent
+  set indentexpr=
   nnoremap j gj
   nnoremap k gk
   vnoremap j gj
@@ -201,6 +212,11 @@ let fortran_do_enddo=1
 "  PLUGIN SETUP
 " --------------
 
+" fzf
+nmap ; :Buffers<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>r :Tags<CR>
+
 "
 "  DEOPLETE
 "
@@ -208,7 +224,8 @@ let g:deoplete#enable_at_startup = 1
 if !exists('g:deoplete#omni#input_patterns')
   let g:deoplete#omni#input_patterns = {}
 endif
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
 augroup omnifuncs
   autocmd!
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -226,13 +243,16 @@ let g:neoinclude#paths = {'cpp' : '/usr/local/include/eigen3'}
 " tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
+" Shifttab
+autocmd FileType python inoremap <S-tab> <C-o>:call ShiftTab()<CR>
+autocmd FileType python setlocal noshowmode
+
 "
 "  NEOMAKE
 "
 "autocmd! BufReadPost,BufWritePost * Neomake
 "let g:neomake_python_enabled_makers = ['flake8']
 "let g:neomake_python_flake8_args=['--ignore=E302,E226,E731,E305',]
-"
 
 "
 " Linting
@@ -282,8 +302,11 @@ augroup filetypes
   autocmd BufRead,BufNewFile *.jl setlocal filetype=julia
 
   " C/C++
+  autocmd FileType c setlocal shiftwidth=2 tabstop=2
   autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
   autocmd FileType cc setlocal shiftwidth=2 tabstop=2
   autocmd FileType hpp setlocal shiftwidth=2 tabstop=2
   autocmd FileType h setlocal shiftwidth=2 tabstop=2
+
+  "autocmd FileType python
 augroup end
