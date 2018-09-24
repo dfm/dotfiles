@@ -12,23 +12,24 @@ Plug 'altercation/vim-colors-solarized'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
-" Building and autocomplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/context_filetype.vim'
-Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
-Plug 'tweekmonster/deoplete-clang2'
-Plug 'Shougo/neoinclude.vim'
+" Autocomplete
+Plug 'valloric/youcompleteme'
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/context_filetype.vim'
+"Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+"Plug 'tweekmonster/deoplete-clang2'
+"Plug 'Shougo/neoinclude.vim'
+"Plug 'dfm/shifttab.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" Linting
+Plug 'w0rp/ale'
+
+" Randomness
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'scrooloose/nerdcommenter'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'gregsexton/MatchTag'
-
-Plug 'w0rp/ale'
-"Plug 'neomake/neomake'
-"
-Plug 'dfm/shifttab.nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 filetype plugin indent on
