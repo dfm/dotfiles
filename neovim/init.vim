@@ -19,7 +19,7 @@ Plug 'valloric/youcompleteme'
 "Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 "Plug 'tweekmonster/deoplete-clang2'
 "Plug 'Shougo/neoinclude.vim'
-"Plug 'dfm/shifttab.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'dfm/shifttab.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Linting
 Plug 'w0rp/ale'
@@ -218,26 +218,31 @@ nmap ; :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
 
+" ycm
+let g:ycm_global_ycm_extra_conf = '~/.config/nvim/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_max_diagnostics_to_display = 0
+
 "
 "  DEOPLETE
 "
-let g:deoplete#enable_at_startup = 1
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
-augroup omnifuncs
-  autocmd!
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup end
+"let g:deoplete#enable_at_startup = 1
+"if !exists('g:deoplete#omni#input_patterns')
+"  let g:deoplete#omni#input_patterns = {}
+"endif
+""autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+"autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
+"augroup omnifuncs
+"  autocmd!
+"  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"augroup end
 
 " Always look for Eigen
-let g:neoinclude#paths = {'cpp' : '/usr/local/include/eigen3'}
+"let g:neoinclude#paths = {'cpp' : '/usr/local/include/eigen3'}
 "let g:deoplete#sources#clang#autofill_neomake = 1
 "let g:deoplete#sources#clang#flags = ['-I/usr/local/include/eigen3', '-Icpp/include']
 
@@ -260,7 +265,8 @@ autocmd FileType python setlocal noshowmode
 "
 
 let g:ale_linters = {'tex': ['chktex', 'lacheck', 'vale'],
-            \        'python': ['flake8']}
+            \        'python': ['flake8'],
+            \        'cpp': []}
 
 "
 "  ULTISNIPS
