@@ -1,7 +1,7 @@
-import platform
+# import platform
 import os
-import subprocess
-import ycm_core
+# import subprocess
+# import ycm_core
 from distutils.sysconfig import get_python_inc
 
 
@@ -52,11 +52,24 @@ else:
     flags += tf.sysconfig.get_compile_flags()
 
 
+def load_local(dirname):
+    local_filename = os.path.join(dirname, ".ycm_custom")
+    if os.path.exists(local_filename):
+        with open(local_filename, "r") as f:
+            return [l.strip().replace("{PWD}", dirname) for l in f]
+    else:
+        parent = os.path.dirname(dirname)
+        flag = os.path.exists(os.path.join(dirname, ".git"))
+        if parent != dirname and not flag:
+            return load_local(parent)
+    return []
+
+
 def Settings(**kwargs):
     if kwargs['language'] == 'cfamily':
         filename = os.path.abspath(kwargs['filename'])
         return {
-            'flags': flags,
+            'flags': flags + load_local(os.path.dirname(filename)),
             'include_paths_relative_to_dir': os.path.dirname(filename),
             'override_filename': filename
         }

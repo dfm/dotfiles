@@ -1,3 +1,5 @@
+let g:python3_host_prog = '/Users/dforeman/anaconda3/bin/python'
+
 "
 "  PLUGIN INSTALLATION
 "
@@ -14,15 +16,19 @@ Plug 'junegunn/fzf.vim'
 
 " Autocomplete
 Plug 'valloric/youcompleteme'
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'Shougo/context_filetype.vim'
-"Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
-"Plug 'tweekmonster/deoplete-clang2'
-"Plug 'Shougo/neoinclude.vim'
 Plug 'dfm/shifttab.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Linting
 Plug 'w0rp/ale'
+
+" Prose
+Plug 'reedes/vim-pencil'
+Plug 'reedes/vim-lexical'
+Plug 'reedes/vim-litecorrect'
+Plug 'reedes/vim-textobj-sentence'
+Plug 'reedes/vim-wordy'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 " Randomness
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -176,6 +182,11 @@ vmap <leader>y ygv<leader>c<space>P
 vmap <leader>c ! pbcopy<CR>u
 nmap <leader>v :set paste<CR>! pbpaste<CR>:set nopaste<CR>
 
+" Limelight colors
+let g:limelight_conceal_ctermfg = 'gray'
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
 " Wrap prose the way I want it.
 " Ref: http://contsys.tumblr.com/post/491802835/vim-soft-word-wrap
 noremap <leader>w vasgq
@@ -195,6 +206,15 @@ function Prose ()
   vnoremap j gj
   vnoremap k gk
 endfunction
+
+"augroup pencil
+"autocmd!
+"autocmd filetype markdown,mkd,tex call pencil#init()
+"    \ | call lexical#init()
+"    \ | call litecorrect#init()
+"    \ | setl spell spl=en_us fdl=4 noru nonu nornu
+"    \ | setl fdo+=search
+"augroup END
 
 " Solarized colorscheme
 set t_Co=256
@@ -223,42 +243,12 @@ let g:ycm_global_ycm_extra_conf = '~/.config/nvim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_max_diagnostics_to_display = 0
 
-"
-"  DEOPLETE
-"
-"let g:deoplete#enable_at_startup = 1
-"if !exists('g:deoplete#omni#input_patterns')
-"  let g:deoplete#omni#input_patterns = {}
-"endif
-""autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-"autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
-"augroup omnifuncs
-"  autocmd!
-"  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-"augroup end
-
-" Always look for Eigen
-"let g:neoinclude#paths = {'cpp' : '/usr/local/include/eigen3'}
-"let g:deoplete#sources#clang#autofill_neomake = 1
-"let g:deoplete#sources#clang#flags = ['-I/usr/local/include/eigen3', '-Icpp/include']
-
 " tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Shifttab
 autocmd FileType python inoremap <S-tab> <C-o>:call ShiftTab()<CR>
 autocmd FileType python setlocal noshowmode
-
-"
-"  NEOMAKE
-"
-"autocmd! BufReadPost,BufWritePost * Neomake
-"let g:neomake_python_enabled_makers = ['flake8']
-"let g:neomake_python_flake8_args=['--ignore=E302,E226,E731,E305',]
 
 "
 " Linting
@@ -289,8 +279,8 @@ augroup filetypes
   autocmd!
 
   " LaTeX
-  autocmd FileType tex setlocal wrap textwidth=78 noai
-  autocmd FileType tex call Prose()
+  autocmd FileType tex,plaintex setlocal wrap textwidth=78 noai
+  autocmd FileType tex,plaintex call Prose()
 
   " Documentation
   autocmd BufRead,BufNewFile *.md setlocal filetype=markdown
