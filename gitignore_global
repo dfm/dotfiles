@@ -1,0 +1,10 @@
+.DS_Store
+*.swp
+*.pyc
+.cache
+.ipynb_checkpoints
+.vscode
+env
+*.egg-info
+__pycache__
+.mypy_cache

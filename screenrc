@@ -1,6 +1,0 @@
-hardstatus alwayslastline
-# caption always "%3n %t%? (%u)%?%?: %h%?"
-hardstatus string '%{= kG}[ %{G}%H ]%{g}[ %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{g}%?%+Lw%?%?%=]%{G}[ %{B}%Y-%m-%d %{W}%c %{G} ]'
-defscrollback 100000
-startup_message off
-

@@ -1,11 +1,11 @@
 [user]
     name = Dan F-M
-    email = danfm@nyu.edu
+    email = foreman.mackey@gmail.com
 
 [core]
     pager = cat
-    editor = nvim
-    excludesfile = ~/.gitignore
+    editor = vi
+    excludesfile = ~/.gitignore_global
 
 [alias]
     tags = tag -l
@@ -62,11 +62,8 @@
     interactive = auto
     status = auto
 
-[mergetool "splice"]
-    cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
-    trustExitCode = true
-
 [include]
     path = ~/.gitconfig_local
+
 [github]
 	user = dfm
