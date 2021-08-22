@@ -67,3 +67,5 @@
 
 [github]
 	user = dfm
+[pull]
+	rebase = false
