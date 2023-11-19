@@ -1,0 +1,13 @@
+.DS_Store
+*.swp
+*.pyc
+.cache
+.ipynb_checkpoints
+.vscode
+env
+*.egg-info
+__pycache__
+.mypy_cache
+.python-version
+__latexindent_temp.tex
+betterbib_cache.sqlite
