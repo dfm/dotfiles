@@ -1,0 +1,8 @@
+[gcloud]
+disabled = true
+
+[shell]
+disabled = false
+format = '[$indicator]($style)'
+zsh_indicator = ''
+nu_indicator = "nu "
