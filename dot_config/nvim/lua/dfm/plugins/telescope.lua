@@ -11,9 +11,7 @@ end
 local function find_files_git_root()
   local opts = {}
   if is_git_repo() then
-    opts = {
-      cwd = get_git_root(),
-    }
+    opts.cwd = get_git_root()
   end
   require("telescope.builtin").find_files(opts)
 end
@@ -54,6 +52,12 @@ return {
             },
           },
         },
+        pickers = {
+          find_files = {
+            file_ignore_patterns = { ".git" },
+            hidden = true
+          },
+        }
       }
       pcall(require("telescope").load_extension, "fzf")
       require("telescope").load_extension "file_browser"
