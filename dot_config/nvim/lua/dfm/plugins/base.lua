@@ -35,16 +35,19 @@ return {
     opts = {},
   },
 
-  -- "<leader>c" to comment visual regions/lines
+  -- "<leader>/" to comment visual regions/lines
   {
     "numToStr/Comment.nvim",
     opts = {
       toggler = {
-        line = "<leader>c",
+        line = "<leader>/",
       },
       opleader = {
-        line = "<leader>c",
+        line = "<leader>/",
       },
     },
   },
+
+  -- Soft wrapping
+  { "andrewferrier/wrapping.nvim", opts = {} },
 }

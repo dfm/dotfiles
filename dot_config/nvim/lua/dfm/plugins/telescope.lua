@@ -54,7 +54,7 @@ return {
         },
         pickers = {
           find_files = {
-            file_ignore_patterns = { ".git" },
+            file_ignore_patterns = { ".git/" },
             hidden = true
           },
         }
