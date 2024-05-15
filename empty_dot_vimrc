@@ -1,0 +1,114 @@
+filetype off
+set nocompatible
+filetype plugin indent on
+set encoding=utf8
+
+syntax on
+set autoindent
+
+let mapleader=","
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
+" Remember info about open buffers on close
+set viminfo^=%
+
+" fuck yeah!
+command! W :w
+command! Q :q
+
+set number
+set numberwidth=3
+highlight LineNr ctermbg=darkgrey
+
+set title
+set ruler
+set virtualedit=block
+set backspace=2             " Allow backspacing over autoindent, EOL, etc.
+set showmatch               " Match parentheses
+set matchpairs+=<:>         "   - also for angle bracket pairs
+set nowrap
+set foldlevel=99
+set ww=<,>,[,],h,l,b,s,~
+
+" Tabbing
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set shiftround              " Rounds indent to multiple of shiftwidth
+
+" Don't autosave anything
+set noautowrite
+set noautowriteall
+set noswapfile
+set nobackup
+set nowb
+set autoread                " Automatically read saved files
+
+" Status line
+set laststatus=2            " Always show it
+set statusline=%<%f\ %y
+
+" Tab completion in command mode
+set wildmenu
+set wildmode=full
+set wildignore+=.hg,.git,.svn
+set wildignore+=*.aux,*.out,*.toc
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg
+set wildignore+=*.pdf
+set wildignore+=*.dat
+set wildignore+=*.o,*.so
+set wildignore+=*.pyc
+set wildignore+=*.sw?
+set wildignore+=*.DS_Store?
+set wildignore+=venv
+set wildignore+=*.fits,*.hdf5,*.h5
+
+" Show invisibles
+set listchars=tab:▸\ ,eol:¬
+set list
+
+" Searching
+set ignorecase              " Default to using case insensitive searches,
+set smartcase               " unless uppercase letters are used in the regex.
+set hlsearch                " Highlight searches by default.
+set incsearch               " Incrementally search while typing a /regex
+
+" Spell check
+set spell
+setlocal spell spelllang=en_us
+
+" Un-highlight search when we hit enter
+autocmd BufRead,BufNewFile * nnoremap <buffer><cr> :nohlsearch<cr>
+
+" Clean up whitespace at the ends of lines before writing
+autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufNewFile,BufRead *.less set filetype=css
+
+" Move a line up/down in a file
+nnoremap - ddp
+nnoremap _ ddkkp
+
+" Surround a word in double quotes
+nnoremap <leader>" viw<esc>a"<esc>hviwo<esc>i"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>hviwo<esc>i'<esc>lel
+
+" A better mapping for leaving insert mode
+inoremap jk <esc>
+
+" jump to beginning/end of lines
+noremap H ^
+noremap L g_
+
+" Save current file with ,.
+nnoremap <leader>. :w<cr>
+" Make with ,m
+nnoremap <leader>m :make<cr>
+
+" Wrap prose the way I want it.
+noremap <leader>w vasgq
