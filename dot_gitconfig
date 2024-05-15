@@ -63,9 +63,6 @@
   interactive = auto
   status = auto
 
-[include]
-  path = ~/.gitconfig_local
-
 [github]
   user = dfm
 
@@ -74,3 +71,6 @@
 
 [init]
   defaultBranch = main
+
+[include]
+  path = ~/.gitconfig_local
