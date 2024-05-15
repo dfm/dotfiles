@@ -3,6 +3,8 @@ set nocompatible
 filetype plugin indent on
 set encoding=utf8
 
+colorscheme nord
+
 syntax on
 set autoindent
 
