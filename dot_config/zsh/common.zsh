@@ -11,8 +11,8 @@ function colours() {
 # Enable ls colors
 ls --color -d . &>/dev/null 2>&1 && alias ls='ls --color=tty' || alias ls='ls -G'
 
-export PAGER=less
-export GHI_PAGER=less
-export EDITOR=nvim
+export PAGER='less -r'
+export GHI_PAGER='less -r'
+export EDITOR=vim
 export VISUAL=$EDITOR
 export SVN_EDITOR=$EDITOR

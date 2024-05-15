@@ -1,5 +1,3 @@
-# Source all the config files.
+if [[ -s $HOME/.zshrc.before ]] ; then source $HOME/.zshrc.before ; fi
 for config_file ($HOME/.config/zsh/*.zsh) source $config_file
-
-# Finally, local settings
-if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi
+if [[ -s $HOME/.zshrc.after ]] ; then source $HOME/.zshrc.after ; fi
