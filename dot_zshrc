@@ -1,3 +1,4 @@
+export PATH="$HOME/.local/bin:$PATH"
 if [[ -s $HOME/.zshrc.before ]] ; then source $HOME/.zshrc.before ; fi
 for config_file ($HOME/.config/zsh/*.zsh) source $config_file
 if [[ -s $HOME/.zshrc.after ]] ; then source $HOME/.zshrc.after ; fi

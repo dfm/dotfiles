@@ -4,7 +4,7 @@
 
 [core]
   pager = diff-so-fancy | less --tabs=4 -RFX
-  editor = nvim
+  editor = vim
   excludesfile = ~/.gitignore_global
 
 [alias]
@@ -67,10 +67,10 @@
   path = ~/.gitconfig_local
 
 [github]
-	user = dfm
+  user = dfm
 
 [pull]
-	rebase = false
+  rebase = false
 
 [init]
-	defaultBranch = main
+  defaultBranch = main
