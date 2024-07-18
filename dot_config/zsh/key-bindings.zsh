@@ -23,9 +23,8 @@ autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search  # [Up-Arrow]"
-bindkey "^[[B" down-line-or-beginning-search  # [Down-Arrow]"
-#
+bindkey "^[[A" up-line-or-beginning-search  # [Up-Arrow]
+bindkey "^[[B" down-line-or-beginning-search  # [Down-Arrow]
 
 
 # bindkey '\ew' kill-region                             # [Esc-w] - Kill from the cursor to the mark
